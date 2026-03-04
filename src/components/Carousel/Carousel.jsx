@@ -7,10 +7,9 @@ import "./Carousel.css";
 
 const handleDragStart = (e) => e.preventDefault();
 
-const Gallery = ({ id, media_type }) => {
+const Carousel = ({ id, media_type }) => {
   const [credits, setCredits] = useState([]);
 
-  // Map credits to carousel items with keys
   const items = credits.map((c) => (
     <div className="carouselItem" key={c.id}>
       <img
@@ -32,7 +31,7 @@ const Gallery = ({ id, media_type }) => {
   const fetchCredits = async () => {
     try {
       const { data } = await axios.get(
-        `https://api.themoviedb.org/3/${media_type}/${id}/credits?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
+        `https://api.themoviedb.org/3/${media_type}/${id}/credits?api_key=${import.meta.env.VITE_APP_API_KEY}&language=en-US`
       );
       setCredits(data.cast);
     } catch (error) {
@@ -42,8 +41,7 @@ const Gallery = ({ id, media_type }) => {
 
   useEffect(() => {
     fetchCredits();
-    // eslint-disable-next-line
-  }, [id, media_type]); // Re-fetch if id or media_type changes
+  }, [id, media_type]);
 
   return (
     <AliceCarousel
@@ -54,8 +52,10 @@ const Gallery = ({ id, media_type }) => {
       responsive={responsive}
       items={items}
       autoPlay
+      autoPlayInterval={1000}
+      animationDuration={1500}
     />
   );
 };
 
-export default Gallery;
+export default Carousel;

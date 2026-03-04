@@ -12,22 +12,26 @@ const darkTheme = createTheme({
   },
 });
 
-export default function CustomPagination({ setPage, numOfPages = 10 }) {
-  // Scroll to top when page changes
+export default function CustomPagination({ setPage, numOfPages = 10, currentPage = 1 }) {
   const handlePageChange = (event, value) => {
+    console.log("Page changed to:", value); // Debug log
     setPage(value);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
-    <Stack spacing={2} alignItems="center" sx={{ marginTop: 2 }}>
+    <Stack spacing={2} alignItems="center" sx={{ marginTop: 4, marginBottom: 4 }}>
       <ThemeProvider theme={darkTheme}>
         <Pagination
           count={numOfPages}
+          page={currentPage}
           color="primary"
           onChange={handlePageChange}
-          hideNextButton
-          hidePrevButton
+          showFirstButton
+          showLastButton
+          size="large"
+          siblingCount={1}
+          boundaryCount={2}
         />
       </ThemeProvider>
     </Stack>

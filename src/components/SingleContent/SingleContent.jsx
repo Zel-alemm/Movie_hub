@@ -1,49 +1,35 @@
-import { motion } from "framer-motion";
-import { Modal, Backdrop, Button } from "@mui/material";
-import YouTubeIcon from "@mui/icons-material/YouTube";
-import Carousel from "../Carousel/Carousel";
+import React from "react";
+import { img_300, unavailable } from "../../config/config";
+import ContentModal from "../ContentModal/ContentModal";
 import "./SingleContent.css";
 
-export default function ContentModal({ children, media_type, id, content, video }) {
+const SingleContent = ({ 
+  id, 
+  poster, 
+  title, 
+  date, 
+  media_type, 
+  vote_average 
+}) => {
   return (
-    <>
-      <div className="media">{children}</div>
-      <Modal
-        open={!!content}
-        onClose={() => {}}
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{ timeout: 500 }}
-      >
-        {content && (
-          <motion.div
-            className="modalContent"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.8 }}
-            transition={{ duration: 0.3 }}
-          >
-            <img
-              src={content.poster_path || ""}
-              alt={content.title || content.name}
-            />
-            <div className="modalDetails">
-              <h2>{content.title || content.name}</h2>
-              <p>{content.overview}</p>
-              <Carousel id={id} media_type={media_type} />
-              <Button
-                variant="contained"
-                startIcon={<YouTubeIcon />}
-                color="primary"
-                href={`https://youtube.com/watch?v=${video}`}
-                target="_blank"
-              >
-                Watch Trailer
-              </Button>
-            </div>
-          </motion.div>
-        )}
-      </Modal>
-    </>
+    <ContentModal media_type={media_type} id={id}>
+      <div className="media">
+        <img
+          className="poster"
+          src={poster ? `${img_300}${poster}` : unavailable}
+          alt={title}
+        />
+        <b className="title">{title}</b>
+        <div className="subTitle">
+          <span>{media_type === "tv" ? "TV Series" : "Movie"}</span>
+          <span>{date ? date.substring(0, 4) : "N/A"}</span>
+        </div>
+        <span className="subTitle">
+          ⭐ {vote_average ? vote_average.toFixed(1) : "N/A"}
+        </span>
+      </div>
+    </ContentModal>
   );
-}
+};
+
+export default SingleContent;

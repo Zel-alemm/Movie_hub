@@ -1,5 +1,90 @@
 .trending {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: center;
+  gap: 15px;
+  padding: 20px;
+  min-height: 60vh;
+}
+
+.pageTitle {
+  text-transform: uppercase;
+  display: flex;
+  justify-content: center;
+  font-family: "Montserrat", sans-serif;
+  font-size: 2vw;
+  padding: 20px;
+  color: white;
+  width: 100%;
+}
+
+@media (max-width: 1000px) {
+  .pageTitle {
+    font-size: 6.4vw;
+  }
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+  font-size: 1.5rem;
+  color: #1976d2;
+}
+
+.no-content {
+  text-align: center;
+  color: #666;
+  padding: 50px;
+  width: 100%;
+}
+
+/* Single Content Card Styles (if not already in global CSS) */
+.media {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  padding: 5px;
+  margin: 5px 0;
+  background-color: #282c34;
+  border-radius: 10px;
+  position: relative;
+  font-family: "Montserrat", sans-serif;
+  transition: transform 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.media:hover {
+  background-color: white;
+  color: black;
+  transform: scale(1.05);
+}
+
+@media (max-width: 550px) {
+  .media {
+    width: 46%;
+  }
+}
+
+.poster {
+  border-radius: 10px;
+  width: 100%;
+  height: auto;
+}
+
+.title {
+  width: 100%;
+  text-align: center;
+  font-size: 17px;
+  padding: 8px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.subTitle {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 2px 3px 2px;
 }

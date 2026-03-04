@@ -12,36 +12,47 @@ const Search = () => {
   const [page, setPage] = useState(1);
   const [content, setContent] = useState([]);
   const [numOfPages, setNumOfPages] = useState(0);
+  const [loading, setLoading] = useState(false);
 
   const darkTheme = createTheme({
-    palette: {
-      mode: "dark", // v5 uses "mode" instead of "type"
-      primary: {
-        main: "#fff",
-      },
+    palette: { 
+      mode: "dark", 
+      primary: { main: "#fff" } 
     },
   });
 
   const fetchSearch = async () => {
-    if (!searchText) return; // skip empty search
+    if (!searchText.trim()) return;
+    
+    setLoading(true);
     try {
       const { data } = await axios.get(
-        `https://api.themoviedb.org/3/search/${type ? "tv" : "movie"}?api_key=${
-          import.meta.env.VITE_APP_API_KEY
-        }&language=en-US&query=${searchText}&page=${page}&include_adult=false`
+        `https://api.themoviedb.org/3/search/${type ? "tv" : "movie"}?api_key=${import.meta.env.VITE_APP_API_KEY}&language=en-US&query=${searchText}&page=${page}&include_adult=false`
       );
       setContent(data.results);
-      setNumOfPages(data.total_pages);
+      setNumOfPages(data.total_pages > 500 ? 500 : data.total_pages);
     } catch (error) {
       console.error("Error fetching search results:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
-    window.scroll(0, 0);
+    window.scrollTo(0, 0);
     fetchSearch();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [type, page]);
+
+  const handleSearch = () => {
+    setPage(1);
+    fetchSearch();
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
+  };
 
   return (
     <div>
@@ -52,12 +63,15 @@ const Search = () => {
             className="searchBox"
             label="Search"
             variant="filled"
+            value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
+            onKeyPress={handleKeyPress}
           />
-          <Button
-            onClick={fetchSearch}
-            variant="contained"
+          <Button 
+            onClick={handleSearch} 
+            variant="contained" 
             style={{ marginLeft: 10 }}
+            disabled={!searchText.trim()}
           >
             <SearchIcon fontSize="large" />
           </Button>
@@ -78,27 +92,29 @@ const Search = () => {
         </Tabs>
       </ThemeProvider>
 
-      <div className="trending">
-        {content &&
-          content.map((c) => (
-            <SingleContent
-              key={c.id}
-              id={c.id}
-              poster={c.poster_path}
-              title={c.title || c.name}
-              date={c.first_air_date || c.release_date}
-              media_type={type ? "tv" : "movie"}
-              vote_average={c.vote_average}
-            />
-          ))}
-        {searchText && content.length === 0 && (
-          <h2>{type ? "No Series Found" : "No Movies Found"}</h2>
-        )}
-      </div>
-
-      {numOfPages > 1 && (
-        <CustomPagination setPage={setPage} numOfPages={numOfPages} />
+      {loading ? (
+        <div className="loading">Loading...</div>
+      ) : (
+        <div className="trending">
+          {content && content.length > 0 ? (
+            content.map((c) => (
+              <SingleContent
+                key={c.id}
+                id={c.id}
+                poster={c.poster_path}
+                title={c.title || c.name}
+                date={c.first_air_date || c.release_date}
+                media_type={type ? "tv" : "movie"}
+                vote_average={c.vote_average}
+              />
+            ))
+          ) : (
+            searchText && <h2>{type ? "No Series Found" : "No Movies Found"}</h2>
+          )}
+        </div>
       )}
+
+      {numOfPages > 1 && <CustomPagination setPage={setPage} numOfPages={numOfPages} />}
     </div>
   );
 };

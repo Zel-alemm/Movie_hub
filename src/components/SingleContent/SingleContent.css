@@ -8,11 +8,15 @@
   border-radius: 10px;
   position: relative;
   font-family: "Montserrat", sans-serif;
+  transition: transform 0.2s ease-in-out;
+  cursor: pointer;
+  color: white;
 }
 
 .media:hover {
   background-color: white;
   color: black;
+  transform: scale(1.05);
 }
 
 @media (max-width: 550px) {
@@ -23,6 +27,9 @@
 
 .poster {
   border-radius: 10px;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
 }
 
 .title {
@@ -30,12 +37,14 @@
   text-align: center;
   font-size: 17px;
   padding: 8px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .subTitle {
   display: flex;
   justify-content: space-between;
-  padding-bottom: 3px;
-  padding: 0 2px;
-  padding-bottom: 3px;
+  padding: 0 2px 3px 2px;
+  font-size: 14px;
 }
