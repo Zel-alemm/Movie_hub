@@ -1,34 +1,116 @@
+/* Global Smooth Scroll */
 * {
   scroll-behavior: smooth;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
 }
 
+/* App Container */
 .app {
   min-height: 100vh;
   background-color: #39445a;
   color: white;
-  padding-top: 130px;
-  padding-bottom: 70px;
+  padding-top: 60px; /* space for top header if needed */
+  padding-left: 60px; /* space for vertical sidebar */
+  transition: padding-left 0.3s ease-in-out;
+  margin-bottom: -30px;
 }
 
-@media (max-width: 700px) {
-  .app {
-    padding-top: 70px;
-  }
-}
-
+/* Page Titles */
 .pageTitle {
   text-transform: uppercase;
   display: flex;
   justify-content: center;
-  font-family: "Montserrat", sans-serif;
   font-size: 2vw;
-  padding: 4px;
+  padding: 10px 20px;
   border-radius: 50px;
   color: white;
 }
 
+/* Vertical Sidebar Navigation adjustments */
+.SideNavigation .MuiBottomNavigationAction-root {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 0;
+  /* margin: 20px 0; */
+  transition: background 0.2s, transform 0.2s;
+}
+
+.SideNavigation .MuiBottomNavigationAction-root:hover {
+  background-color: #2a2e3b;
+  transform: scale(1.05);
+  border-radius: 8px;
+}
+
+.SideNavigation .MuiBottomNavigationAction-root.Mui-selected {
+  background-color: #ff3d00;
+  color: white;
+}
+
+/* Media Cards */
+.media {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  padding: 5px;
+  margin: 5px 10px;
+  background-color: #282c34;
+  border-radius: 10px;
+  position: relative;
+  transition: transform 0.2s ease-in-out, background-color 0.2s;
+  cursor: pointer;
+  color: white;
+}
+
+.media:hover {
+  background-color: #3a3f4f;
+  transform: scale(1.05);
+}
+
+.poster {
+  border-radius: 10px;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.title {
+  width: 100%;
+  text-align: center;
+  font-size: 17px;
+  padding: 8px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.subTitle {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 2px 3px 2px;
+  font-size: 14px;
+}
+
+/* Responsive */
 @media (max-width: 1000px) {
   .pageTitle {
-    font-size: 6.4vw;
+    font-size: 6vw;
+  }
+  .app {
+    padding-left: 90px;
+  }
+}
+
+@media (max-width: 700px) {
+  .app {
+    padding-left: 70px;
+    padding-top: 70px;
+  }
+  .media {
+    width: 46%;
   }
 }

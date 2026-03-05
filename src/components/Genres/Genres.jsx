@@ -42,27 +42,50 @@ const Genres = ({
   }, [type]);
 
   return (
-    <div style={{ padding: "6px 0" }}>
+    <div style={{ padding: "6px 0", display: "flex", flexWrap: "wrap", gap: "6px" }}>
+      {/* Selected Genres */}
       {selectedGenres.map((genre) => (
         <Chip
-          style={{ margin: 2 }}
-          label={genre.name}
           key={genre.id}
-          color="primary"
+          label={genre.name}
           clickable
           size="small"
           onDelete={() => handleRemove(genre)}
+          sx={{
+            backgroundColor: "#ff3d00",
+            color: "#fff",
+            fontWeight: 600,
+            fontSize: "0.9rem",
+            boxShadow: "0 2px 5px rgba(0,0,0,0.4)",
+            "&:hover": {
+              backgroundColor: "#ff5722",
+              transform: "scale(1.05)",
+              boxShadow: "0 4px 10px rgba(0,0,0,0.5)"
+            },
+          }}
         />
       ))}
 
+      {/* Available Genres */}
       {genres.map((genre) => (
         <Chip
-          style={{ margin: 2 }}
-          label={genre.name}
           key={genre.id}
+          label={genre.name}
           clickable
           size="small"
           onClick={() => handleAdd(genre)}
+          sx={{
+            backgroundColor: "#3a3f4f",
+            color: "#fff",
+            fontWeight: 500,
+            fontSize: "0.85rem",
+            boxShadow: "0 1px 4px rgba(0,0,0,0.3)",
+            "&:hover": {
+              backgroundColor: "#5c6370",
+              transform: "scale(1.05)",
+              boxShadow: "0 3px 8px rgba(0,0,0,0.4)"
+            },
+          }}
         />
       ))}
     </div>

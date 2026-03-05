@@ -48,3 +48,17 @@
   padding: 0 2px 3px 2px;
   font-size: 14px;
 }
+
+.vote {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background-color: #3f51b5;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 8px;
+  z-index: 10;
+}
+

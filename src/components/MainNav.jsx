@@ -8,15 +8,37 @@ import SearchIcon from "@mui/icons-material/Search";
 import WhatshotIcon from "@mui/icons-material/Whatshot";
 import { styled } from "@mui/material/styles";
 
-const StyledBottomNavigation = styled(BottomNavigation)({
-  width: "100%",
+const SideNavigation = styled(BottomNavigation)({
+  height: "70vh",
+  width: "70px",
   position: "fixed",
-  bottom: 0,
-  backgroundColor: "#2d313a",
+  left: 5,
+  top: 80,
+  flexDirection: "column",
+  justifyContent: "center",
+  paddingLeft: 0,
+  backgroundColor: "rgba(31, 31, 46, 0.5)", // semi-transparent
+  borderRight: "1px solid rgba(255,255,255,0.1)",
+  borderRadius: "10px",
   zIndex: 100,
+  transition: "all 0.3s ease-in-out",
+  "& .MuiBottomNavigationAction-root": {
+    color: "white",
+    margin: "10px 0",
+    transition: "all 0.2s ease",
+  },
+  "& .MuiBottomNavigationAction-root:hover": {
+    backgroundColor: "rgba(97, 122, 245, 0.2)", // lighter hover effect
+    borderRadius: "6px",                        // slightly smaller rounding
+  },
+  "& .Mui-selected": {
+    backgroundColor: "rgba(40, 37, 130, 0.4)", // lighter active effect
+    color: "white",
+    borderRadius: "6px",                        // slightly smaller rounding
+  },
 });
 
-export default function SimpleBottomNavigation() {
+export default function MainNav() {
   const [value, setValue] = useState(0);
   const navigate = useNavigate();
 
@@ -28,31 +50,15 @@ export default function SimpleBottomNavigation() {
   }, [value, navigate]);
 
   return (
-    <StyledBottomNavigation
+    <SideNavigation
       value={value}
       onChange={(event, newValue) => setValue(newValue)}
       showLabels
     >
-      <BottomNavigationAction
-        style={{ color: "white" }}
-        label="Trending"
-        icon={<WhatshotIcon />}
-      />
-      <BottomNavigationAction
-        style={{ color: "white" }}
-        label="Movies"
-        icon={<MovieIcon />}
-      />
-      <BottomNavigationAction
-        style={{ color: "white" }}
-        label="TV Series"
-        icon={<TvIcon />}
-      />
-      <BottomNavigationAction
-        style={{ color: "white" }}
-        label="Search"
-        icon={<SearchIcon />}
-      />
-    </StyledBottomNavigation>
+      <BottomNavigationAction label="Trending" icon={<WhatshotIcon />} />
+      <BottomNavigationAction label="Movies" icon={<MovieIcon />} />
+      <BottomNavigationAction label="TV" icon={<TvIcon />} />
+      <BottomNavigationAction label="Search" icon={<SearchIcon />} />
+    </SideNavigation>
   );
 }

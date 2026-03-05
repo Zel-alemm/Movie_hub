@@ -5,21 +5,39 @@
   top: 0;
   display: flex;
   justify-content: center;
-  text-transform: uppercase;
-  background-color: #1f1f2e; /* dark navy */
+  align-items: center;
+
   font-family: "Montserrat", sans-serif;
-  font-size: 4.5vw;
+  font-size: 28px;
   font-weight: 700;
-  padding: 20px 0;
-  box-shadow: 0 2px 8px black;
-  color: #ff3d00; /* vibrant accent */
+  letter-spacing: 2px;
+
+  padding: 10px 0;
+
+  background: linear-gradient(90deg, #141e30, #243b55);
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+
+  text-transform: uppercase;
+
+  backdrop-filter: blur(10px);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.6);
+
   z-index: 100;
   user-select: none;
+
+  transition: all 0.3s ease;
+}
+
+.header:hover {
+  letter-spacing: 4px;
+  transform: scale(1.02);
 }
 
 @media (max-width: 1000px) {
   .header {
-    font-size: 6vw;
-    padding: 18px 0;
+    font-size: 22px;
+    padding: 8px 0;
   }
 }
